@@ -42,6 +42,10 @@ Vagrant.configure("2") do |config|
      systemctl enable --now php-fpm
      systemctl enable --now httpd
      systemctl enable --now mariadb
+     systemctl enable --now firewalld
+     firewall-cmd --remove-service=dhcpv6-client --permanent
+     firewall-cmd --add-service={http,https,ssh} --permanent
+     firewall-cmd --reload
      echo "<?php phpinfo(); ?>" > /var/www/html/index.php
    SHELL
 end
